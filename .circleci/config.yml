@@ -73,7 +73,7 @@ jobs:
             fi
 
   deploy-to-aws-cloudfront:
-    excutors: app-executor
+    executors: app-executor
     steps:
       - checkout
       - *show-current-branch-name
