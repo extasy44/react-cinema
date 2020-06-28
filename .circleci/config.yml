@@ -52,7 +52,7 @@ jobs:
       - *install-dependencies
       - *save-cache
 
-  prittier:
+  prettier:
     executor: app-executor
     steps:
       - checkout
