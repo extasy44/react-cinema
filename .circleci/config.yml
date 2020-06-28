@@ -1,5 +1,5 @@
 version: 2.1
-excutors:
+executors:
   app-executor:
     docker:
       - image: circleci/node:latest
@@ -44,7 +44,7 @@ aliasis:
 
 jobs:
   build:
-    excutors: app-executor
+    executors: app-executor
     steps:
       - checkout
       - *show-current-branch-name
@@ -53,7 +53,7 @@ jobs:
       - *save-cache
 
   deploy-to-aws-s3:
-    excutors: app-executor
+    executors: app-executor
     steps:
       - checkout
       - *show-current-branch-name
