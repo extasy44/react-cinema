@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import './Slideshow.scss';
+import './SlideShow.scss';
 
 const Slideshow = (props) => {
   const { images, auto, showArrows } = props;
