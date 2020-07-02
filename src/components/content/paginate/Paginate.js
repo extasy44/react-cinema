@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import './Paginate.scss';
 
 const Paginate = (props) => {
-  const { totalPages, currentPage, paginate } = props;
-
+  const { currentPage, totalPages, paginate } = props;
   const [page, setPage] = useState();
   const [totalPageNumber, setTotalPageNumber] = useState();
 
@@ -16,7 +16,7 @@ const Paginate = (props) => {
   return (
     <>
       <span className="pageCount">
-        {page} - {totalPages}
+        {page} - {totalPageNumber}
       </span>
       <button className={page > 1 ? 'paginate-button' : 'paginate-button disable'} onClick={() => paginate('prev')}>
         Prev
