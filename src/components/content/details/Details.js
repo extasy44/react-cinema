@@ -22,7 +22,7 @@ const Details = (props) => {
   useEffect(() => {
     movieDetails(id);
     setDetails(movie[0]);
-  }, [id, movie]);
+  }, [id, movie, movieDetails]);
 
   return (
     <>
