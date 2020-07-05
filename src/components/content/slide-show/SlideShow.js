@@ -92,7 +92,13 @@ const Slideshow = (props) => {
   return (
     <>
       <div className="slider">
-        <div className="slider-slides">{images && images.length && slideShow && <div className="slider-image" style={{ backgroundImage: `url(${slideShow.url})` }}></div>}</div>
+        <div className="slider-slides">
+          {images && images.length && slideShow && (
+            <div className="slider-image" style={{ backgroundImage: `url(${slideShow.url})` }}>
+              <h2 className="title">{slideShow.title}</h2>
+            </div>
+          )}
+        </div>
         <Indicators currentSlide={slideIndex} />
         {showArrows ? <RenderArrows /> : null}
       </div>
