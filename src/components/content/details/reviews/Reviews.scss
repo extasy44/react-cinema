@@ -1,7 +1,7 @@
 .movie-reviews {
   .div-title {
     color: #fff;
-    font-size: 15px;
+    font-size: 32px;
     font-weight: 700;
     border-bottom: 1px solid #233a50;
     height: 27px;
@@ -11,7 +11,7 @@
   }
 
   .reviews {
-    color: #abb7c4;
+    color: #ffffff;
     line-height: 24px;
     font-size: 14px;
     font-weight: 300;
@@ -19,14 +19,16 @@
     text-align: justify;
 
     h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
+      padding-bottom: 15px;
       margin-bottom: 20px;
+      border-bottom: 1px solid white;
     }
   }
 
   p {
-    color: #abb7c4;
+    color: #ffffff;
     font-size: 16px;
   }
 }

@@ -16,7 +16,7 @@ const Reviews = (props) => {
         {reviews.results.length ? (
           reviews.results.map((data) => (
             <div className="reviews" key={uuidv4()}>
-              <h3>{data.author}</h3>
+              <h3>Written by {data.author}</h3>
               <div>{data.content}</div>
             </div>
           ))
