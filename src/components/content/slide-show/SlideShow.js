@@ -95,7 +95,8 @@ const Slideshow = (props) => {
         <div className="slider-slides">
           {images && images.length && slideShow && (
             <div className="slider-image" style={{ backgroundImage: `url(${slideShow.url})` }}>
-              <h2 className="title">{slideShow.title}</h2>
+              <div className="slider-title">{slideShow.title}</div>
+              <div className="slider-overview">{slideShow.overview}</div>
             </div>
           )}
         </div>

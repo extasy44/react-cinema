@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +9,11 @@ import { IMAGE_URL } from '../../../../services/movies.service';
 
 const Crew = (props) => {
   const { movie } = props;
-  const [credits] = useState(movie[1]);
+  const [credits, setCredits] = useState(movie[1]);
+
+  useEffect(() => {
+    setCredits(movie[1]);
+  }, [movie]);
 
   return (
     <>

@@ -58,10 +58,16 @@ const Header = (props) => {
 
   const setMovieTypeUrl = (type) => {
     setDisableSearch(false);
+
     if (location.pathname !== '/') {
       clearMovieDetails();
       history.push('/');
     }
+
+    toggleMenu();
+    setSearch('');
+    searchQuery('');
+    searchResult('');
     setType(type);
     setMovieType(type);
   };
@@ -70,12 +76,6 @@ const Header = (props) => {
     setSearch(e.target.value);
     searchQuery(e.target.value);
     searchResult(e.target.value);
-  };
-
-  const navigateToMainPage = () => {
-    setDisableSearch(false);
-    clearMovieDetails();
-    history.push('/');
   };
 
   const toggleMenu = () => {
@@ -95,7 +95,7 @@ const Header = (props) => {
       <div className="header-nav-wrapper">
         <div className="header-bar"></div>
         <div className="header-navbar">
-          <div className="header-image" onClick={() => navigateToMainPage()}>
+          <div className="header-image" onClick={() => setMovieTypeUrl('now_playing')}>
             <img src={logo} alt="Cinema" />
           </div>
           <div className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'}`} id="header-mobile-menu" onClick={() => toggleMenu()}>

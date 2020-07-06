@@ -36,7 +36,9 @@ const SearchResult = (props) => {
             {data.poster_path && (
               <LazyImage className="grid-cell" alt="placholder" src={`${IMAGE_URL}${data.poster_path}`}>
                 <div className="grid-read-more">
-                  <Link to={`${data.id}/${formatMovieTitle(data.title)}/details`}>Read More</Link>
+                  <button className="grid-cell-button">
+                    <Link to={`${data.id}/${formatMovieTitle(data.title)}/details`}>Read More</Link>
+                  </button>
                 </div>
                 <div className="grid-detail">
                   <span className="grid-detail-title">{data.title}</span>

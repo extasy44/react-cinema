@@ -30,7 +30,7 @@ const Details = (props) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 800);
+    }, 1200);
   }, []);
 
   return (

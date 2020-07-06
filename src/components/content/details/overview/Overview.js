@@ -51,7 +51,7 @@ const Overview = (props) => {
     setItems(detailItems);
 
     // eslint-disable-next-line
-  }, []);
+  }, [movie]);
 
   const numberFormatter = (number, digits) => {
     const symbolArray = [

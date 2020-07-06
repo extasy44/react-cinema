@@ -29,22 +29,26 @@ const MainContent = (props) => {
         {
           id: 1,
           url: `${IMAGE_URL}/${randomMovies[0].backdrop_path}`,
-          title: randomMovies[0].title
+          title: randomMovies[0].title,
+          overview: randomMovies[0].overview
         },
         {
           id: 2,
           url: `${IMAGE_URL}/${randomMovies[1].backdrop_path}`,
-          title: randomMovies[1].title
+          title: randomMovies[1].title,
+          overview: randomMovies[1].overview
         },
         {
           id: 3,
           url: `${IMAGE_URL}/${randomMovies[2].backdrop_path}`,
-          title: randomMovies[2].title
+          title: randomMovies[2].title,
+          overview: randomMovies[2].overview
         },
         {
           id: 4,
           url: `${IMAGE_URL}/${randomMovies[3].backdrop_path}`,
-          title: randomMovies[3].title
+          title: randomMovies[3].title,
+          overview: randomMovies[3].overview
         }
       ];
       setImages(IMAGES);
