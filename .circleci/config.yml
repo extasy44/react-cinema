@@ -14,7 +14,7 @@ executors:
     environment:
       IMAGE_NAME: extasy44/cinemaapp
     docker:
-      image: circleci/buildpack-deps:stretch
+      - image: circleci/buildpack-deps:stretch
 
 aliasis:
   - &show-current-branch-name
