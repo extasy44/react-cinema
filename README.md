@@ -6,6 +6,7 @@ A react app built with redux and [The Movie Database API](https://developers.the
 - Redux
 - Node-sass and CSS Grid
 - Github
+- Circleci
 - Docker
 - AWS S3
 - AWS Cloudfront

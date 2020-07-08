@@ -1,4 +1,4 @@
-import { MOVIE_LIST, SET_ERROR, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS } from '../types';
+import { MOVIE_LIST, SET_ERROR, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS, IS_LOADING_MORE } from '../types';
 import { MOVIE_API_URL, SEARCH_API_URL, MOVIE_CREDITS_URL, MOVIE_DETAILS_URL, MOVIE_IMAGES_URL, MOVIE_REVIEWS_URL, MOVIE_VIDEOS_URL } from '../../services/movies.service';
 
 export const getMovies = (type, pageNumber) => async (dispatch) => {
@@ -10,16 +10,22 @@ export const getMovies = (type, pageNumber) => async (dispatch) => {
     dispatchMethod(RESPONSE_PAGE, payload, dispatch);
   } catch (error) {
     if (error.response) {
-      dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
+      const payload = {
+        message: error.response.data.message || error.response.data.status_message,
+        statusCode: error.response.status
+      };
+      dispatchMethod(SET_ERROR, payload, dispatch);
     }
   }
 };
 
 export const loadMoreMovies = (type, pageNumber) => async (dispatch) => {
   try {
+    dispatchMethod(IS_LOADING_MORE, true, dispatch);
     const response = await getMoviesRequest(type, pageNumber);
     const { results, payload } = response;
     dispatchMethod(LOAD_MORE_RESULTS, { list: results, page: payload.page, totalPages: payload.totalPages }, dispatch);
+    dispatchMethod(IS_LOADING_MORE, false, dispatch);
   } catch (error) {
     if (error.response) {
       const payload = {
@@ -46,7 +52,11 @@ export const movieDetails = (id) => async (dispatch) => {
     dispatchMethod(MOVIE_DETAILS, res, dispatch);
   } catch (error) {
     if (error.response) {
-      dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
+      const payload = {
+        message: error.response.data.message || error.response.data.status_message,
+        statusCode: error.response.status
+      };
+      dispatchMethod(SET_ERROR, payload, dispatch);
     }
   }
 };

@@ -13,7 +13,8 @@
     border: 1px solid #efefef;
     border-radius: 3px;
     text-align: center;
-    text-decoration: non !important ;
+    text-decoration: none !important ;
+    cursor: pointer;
 
     &:hover {
       color: #ffffff;

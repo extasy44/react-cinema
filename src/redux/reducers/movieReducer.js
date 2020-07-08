@@ -1,4 +1,4 @@
-import { MOVIE_LIST, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS } from '../types';
+import { MOVIE_LIST, RESPONSE_PAGE, LOAD_MORE_RESULTS, MOVIE_TYPE, SEARCH_QUERY, SEARCH_RESULT, MOVIE_DETAILS, CLEAR_MOVIE_DETAILS, IS_LOADING_MORE } from '../types';
 
 const initialState = {
   list: [],
@@ -7,7 +7,8 @@ const initialState = {
   movieType: 'now_playing',
   searchQuery: '',
   searchResult: [],
-  movie: []
+  movie: [],
+  loadingMore: false
 };
 
 export default (state = initialState, action) => {
@@ -24,7 +25,11 @@ export default (state = initialState, action) => {
         page: action.payload.page,
         totalPages: action.payload.totalPages
       };
-
+    case IS_LOADING_MORE:
+      return {
+        ...state,
+        loadingMore: action.payload
+      };
     case MOVIE_TYPE:
       return {
         ...state,

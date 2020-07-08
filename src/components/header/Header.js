@@ -5,7 +5,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/cinema-logo.svg';
 import { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails } from '../../redux/actions/movies';
-
+import { pathURL } from '../../redux/actions/routes';
+import { setError } from '../../redux/actions/errors';
 import './Header.scss';
 
 const HEADER_LIST = [
@@ -36,7 +37,7 @@ const HEADER_LIST = [
 ];
 
 const Header = (props) => {
-  const { getMovies, setMovieType, page, totalPages, searchResult, searchQuery, clearMovieDetails } = props;
+  const { getMovies, setMovieType, page, totalPages, searchResult, searchQuery, clearMovieDetails, routesArray, path, url, pathURL, setError, errors } = props;
   let [navClass, setNavClass] = useState(false);
   let [menuClass, setMenuClass] = useState(false);
   const [type, setType] = useState('now_playing');
@@ -47,12 +48,36 @@ const Header = (props) => {
   const location = useLocation();
 
   useEffect(() => {
+    if (errors.message || errors.statusCode) {
+      pathURL('/', '/');
+      const error = new Error(`${errors.message} with status code ${errors.statusCode}`);
+      setError({ message: `Page with pathname ${location.pathname} not found`, statusCode: 404 });
+      throw error;
+    }
+    // eslint-disable-next-line
+  }, [errors]);
+
+  useEffect(() => {
+    if (routesArray.length) {
+      if (!path && !url) {
+        pathURL('/', '/');
+        const error = new Error(`Page with pathname ${location.pathname} not found with status code 404`);
+        setError({ message: `Page with pathname ${location.pathname} not found`, statusCode: 404 });
+        throw error;
+      }
+    }
+
+    // eslint-disable-next-line
+  }, [path, url, routesArray, pathURL]);
+
+  useEffect(() => {
     getMovies(type, page);
     setResponsePageNumber(page, totalPages);
 
     if (location.pathname !== '/' && location.key) {
       setDisableSearch(true);
     }
+
     // eslint-disable-next-line
   }, [type, disableSearch, location]);
 
@@ -130,12 +155,22 @@ Header.propTypes = {
   totalPages: PropTypes.number,
   searchResult: PropTypes.func,
   searchQuery: PropTypes.func,
-  clearMovieDetails: PropTypes.func
+  clearMovieDetails: PropTypes.func,
+  path: PropTypes.string,
+  url: PropTypes.string,
+  routesArray: PropTypes.array,
+  pathURL: PropTypes.func,
+  setError: PropTypes.func,
+  errors: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   page: state.movies.page,
-  totalPages: state.movies.totalPages
+  totalPages: state.movies.totalPages,
+  routesArray: state.routes.routesArray,
+  path: state.routes.path,
+  url: state.routes.url,
+  errors: state.errors
 });
 
-export default connect(mapStateToProps, { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails })(Header);
+export default connect(mapStateToProps, { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails, pathURL, setError })(Header);

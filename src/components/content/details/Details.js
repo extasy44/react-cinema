@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import './Details.scss';
 import { movieDetails } from '../../../redux/actions/movies';
+import { pathURL } from '../../../redux/actions/routes';
 
 import Rating from '../../rating/Rating';
 import Tabs from './tabs/Tabs';
@@ -16,15 +17,19 @@ import { IMAGE_URL } from '../../../services/movies.service';
 import Spinner from '../../spinner/Spinner';
 
 const Details = (props) => {
-  const { movieDetails, movie } = props;
+  const { movieDetails, movie, pathURL, match } = props;
   const { id } = useParams();
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    movieDetails(id);
+    pathURL(match.path, match.url);
+    if (movie.length === 0) {
+      movieDetails(id);
+    }
     setDetails(movie[0]);
-  }, [id, movie, movieDetails]);
+    // eslint-disable-next-line
+  }, [id, movie]);
 
   useEffect(() => {
     setLoading(true);
@@ -96,4 +101,4 @@ const mapStateToProps = (state) => ({
   movie: state.movies.movie
 });
 
-export default connect(mapStateToProps, { movieDetails })(Details);
+export default connect(mapStateToProps, { movieDetails, pathURL })(Details);

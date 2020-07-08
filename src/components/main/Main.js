@@ -6,11 +6,13 @@ import './Main.scss';
 import MainContent from '../content/main-content/MainContent';
 import Spinner from '../spinner/Spinner';
 import { loadMoreMovies, setResponsePageNumber } from '../../redux/actions/movies';
+import { pathURL } from '../../redux/actions/routes';
 import SearchResult from '../search-result/SearchResult';
 
 const Main = (props) => {
-  const { loadMoreMovies, page, totalPages, movieType, searchResult } = props;
+  const { loadMoreMovies, page, totalPages, movieType, searchResult, loadingMore, match, pathURL } = props;
   const [loading, setLoading] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(page);
   const mainRef = useRef();
   const bottomLineRef = useRef();
@@ -23,6 +25,7 @@ const Main = (props) => {
   }, []);
 
   useEffect(() => {
+    pathURL(match.path, match.url);
     setResponsePageNumber(currentPage, totalPages);
     // eslint-disable-next-line
   }, [currentPage, totalPages, page]);
@@ -47,7 +50,9 @@ const Main = (props) => {
   return (
     <div className="main" onScroll={() => handleScroll()} ref={mainRef}>
       {loading ? <Spinner /> : <>{searchResult && searchResult.length === 0 ? <MainContent /> : <SearchResult />}</>}
-      <div ref={bottomLineRef}></div>
+      <div className="bottom-line" ref={bottomLineRef}>
+        {loadingMore ? <Spinner /> : ''}
+      </div>
     </div>
   );
 };
@@ -60,7 +65,11 @@ Main.propTypes = {
   setResponsePageNumber: PropTypes.func,
   movieType: PropTypes.string,
   totalPages: PropTypes.number,
-  searchResult: PropTypes.array
+  searchResult: PropTypes.array,
+  pathURL: PropTypes.func,
+  match: PropTypes.object,
+  loadingMore: PropTypes.bool,
+  errors: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
@@ -68,7 +77,9 @@ const mapStateToProps = (state) => ({
   page: state.movies.page,
   totalPages: state.movies.totalPages,
   movieType: state.movies.movieType,
-  searchResult: state.movies.searchResult
+  searchResult: state.movies.searchResult,
+  loadingMore: state.movies.loadingMore,
+  errors: state.errors
 });
 
-export default connect(mapStateToProps, { loadMoreMovies, setResponsePageNumber })(Main);
+export default connect(mapStateToProps, { loadMoreMovies, setResponsePageNumber, pathURL })(Main);
