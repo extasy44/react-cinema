@@ -90,7 +90,7 @@ jobs:
       - setup_remote_docker
       - *restore-cache
       - run: docker login -u "${DOCKER_HUB_USER}" -p "${DOCKER_HUB_PASSWORD}"
-      - run: docker build -t ${IMAGE_NAME}:latest
+      - run: docker build -t ${IMAGE_NAME}:latest .
       - run:
           name: Tage and push to docker hub
           command: |
@@ -176,21 +176,10 @@ workflows:
               only:
                 - develop
                 - staging
-                - master
-
-      - publish-to-docker-hub:
-          requires:
-            - unit-test
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - master
 
       - deploy-to-aws-s3:
           requires:
-            - publish-to-docker-hub
+            - unit-test
           filters:
             branches:
               only:
