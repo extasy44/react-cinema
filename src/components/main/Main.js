@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './Main.scss';
 
 import MainContent from '../content/main-content/MainContent';
-import Spinner from '../spinner/Spinner';
 import { loadMoreMovies, setResponsePageNumber } from '../../redux/actions/movies';
+import Spinner from '../spinner/Spinner';
 import { pathURL } from '../../redux/actions/routes';
 import SearchResult from '../search-result/SearchResult';
 

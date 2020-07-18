@@ -15,8 +15,8 @@ const App = (props) => {
   const { appRoutes } = props;
   const routesArray = [
     {
-      id: 1,
       path: '/',
+      id: 1,
       component: Main
     },
     {

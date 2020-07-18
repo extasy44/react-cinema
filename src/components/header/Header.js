@@ -88,8 +88,6 @@ const Header = (props) => {
       clearMovieDetails();
       history.push('/');
     }
-
-    toggleMenu();
     setSearch('');
     searchQuery('');
     searchResult('');
