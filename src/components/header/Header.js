@@ -83,6 +83,7 @@ const Header = (props) => {
 
   const setMovieTypeUrl = (type) => {
     setDisableSearch(false);
+    toggleMenu();
 
     if (location.pathname !== '/') {
       clearMovieDetails();
@@ -106,6 +107,7 @@ const Header = (props) => {
     navClass = !navClass;
     setMenuClass(menuClass);
     setNavClass(navClass);
+
     if (navClass) {
       document.body.classList.add('header-nav-open');
     } else {

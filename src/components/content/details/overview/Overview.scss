@@ -97,7 +97,7 @@
       }
 
       a:not(:last-child):after {
-        content: ",";
+        content: ',';
       }
     }
   }
@@ -111,5 +111,9 @@
 
   .overview-column-2 {
     margin-top: 30px;
+
+    .overview-detail {
+      margin-left: 0;
+    }
   }
 }
