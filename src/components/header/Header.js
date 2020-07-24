@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/cinema-logo.svg';
-import { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails } from '../../redux/actions/movies';
+import { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails, getMoviesRequest } from '../../redux/actions/movies';
 import { pathURL } from '../../redux/actions/routes';
 import { setError } from '../../redux/actions/errors';
 import './Header.scss';
@@ -58,6 +58,7 @@ const Header = (props) => {
   }, [errors]);
 
   useEffect(() => {
+    clearMovieDetails();
     if (routesArray.length) {
       if (!path && !url) {
         pathURL('/', '/');
@@ -73,7 +74,7 @@ const Header = (props) => {
   useEffect(() => {
     getMovies(type, page);
     setResponsePageNumber(page, totalPages);
-
+    clearMovieDetails();
     if (location.pathname !== '/' && location.key) {
       setDisableSearch(true);
     }
@@ -83,17 +84,23 @@ const Header = (props) => {
 
   const setMovieTypeUrl = (type) => {
     setDisableSearch(false);
-    toggleMenu();
+
+    if (type === '') {
+      closeMenu();
+    } else {
+      toggleMenu();
+      setType(type);
+      setMovieType(type);
+    }
 
     if (location.pathname !== '/') {
       clearMovieDetails();
       history.push('/');
     }
+
     setSearch('');
     searchQuery('');
     searchResult('');
-    setType(type);
-    setMovieType(type);
   };
 
   const onSearchChange = (e) => {
@@ -115,12 +122,18 @@ const Header = (props) => {
     }
   };
 
+  const closeMenu = () => {
+    setMenuClass(false);
+    setNavClass(false);
+    document.body.classList.remove('header-nav-open');
+  };
+
   return (
     <>
       <div className="header-nav-wrapper">
         <div className="header-bar"></div>
         <div className="header-navbar">
-          <div className="header-image" onClick={() => setMovieTypeUrl('now_playing')}>
+          <div className="header-image" onClick={() => setMovieTypeUrl('')}>
             <img src={logo} alt="Cinema" />
           </div>
           <div className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'}`} id="header-mobile-menu" onClick={() => toggleMenu()}>

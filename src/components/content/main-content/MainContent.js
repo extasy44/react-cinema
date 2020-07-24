@@ -83,6 +83,12 @@ const MainContent = (props) => {
         </div>
       </div>
       <Grid images={images} />
+
+      <div className="loadmore">
+        Showing
+        <span className="pageCount">{currentPage}</span>
+        Page of {totalPages} Pages
+      </div>
     </div>
   );
 };
