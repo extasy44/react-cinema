@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import logo from '../../assets/cinema-logo.svg';
-import { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails, getMoviesRequest } from '../../redux/actions/movies';
+import { getMovies, setMovieType, setResponsePageNumber, searchResult, searchQuery, clearMovieDetails } from '../../redux/actions/movies';
 import { pathURL } from '../../redux/actions/routes';
 import { setError } from '../../redux/actions/errors';
 import './Header.scss';
